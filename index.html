@@ -2978,12 +2978,17 @@ ul { list-style: none; }
   /* --- DECO FLOATS hidden on mobile --- */
   .deco-float { display: none; }
 
-  /* --- ANIMATIONS lighter on mobile --- */
-  #bubbles-canvas { opacity: 0.25; }
+  /* --- PERFORMANCES MOBILE : d&eacute;sactiver les canvas lourds --- */
+  #bubbles-canvas, #aboutParticles, #galleryParticles, #contactBubbles, #contactFoam { display: none !important; }
   .hero-blob { opacity: 0.08; }
+  .clean-bg { display: none !important; }
   .svc-card::before, .svc-card::after,
   .benefit-card::before, .benefit-card::after { height: 2px; }
-  .svc-card:hover, .benefit-card:hover { transform: none; } /* No hover lift on touch */
+  .svc-card:hover, .benefit-card:hover { transform: none; }
+  /* R&eacute;duire les animations CSS sur mobile */
+  *, *::before, *::after { animation-duration: 0.3s !important; transition-duration: 0.2s !important; }
+  .av-orbit-ring { animation: none !important; }
+  .cb-float1, .cb-float2, .cb-float3, .cb-float4, .cb-float5, .cb-float6 { animation: none !important; display: none !important; }
 
   /* --- LOADER smaller on mobile --- */
   .loader-logo-wrap { width: 220px; height: 220px; }
@@ -4363,14 +4368,15 @@ ul { list-style: none; }
   document.body.style.overflow = 'hidden';
 
   // =============================================
-  // WATER BUBBLES SYSTEM
+  // WATER BUBBLES SYSTEM (DESKTOP ONLY)
   // =============================================
   const canvas = document.getElementById('bubbles-canvas');
-  const ctx = canvas.getContext('2d');
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile && canvas) canvas.style.display = 'none';
+  const ctx = !isMobile && canvas ? canvas.getContext('2d') : null;
   let mouseX = -1000, mouseY = -1000;
   let bubbles = [];
-  const isMobile = window.innerWidth <= 768;
-  const BUBBLE_COUNT = isMobile ? 20 : 85;
+  const BUBBLE_COUNT = isMobile ? 0 : 85;
   const MOUSE_RADIUS = 140;
 
   function resizeCanvas() {
@@ -4469,11 +4475,12 @@ ul { list-style: none; }
   for (let i = 0; i < BUBBLE_COUNT; i++) bubbles.push(new Bubble());
 
   function animateBubbles() {
+    if (!ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     bubbles.forEach(b => { b.update(); b.draw(); });
     requestAnimationFrame(animateBubbles);
   }
-  animateBubbles();
+  if (!isMobile) animateBubbles();
 
   // =============================================
   // SCROLL PROGRESS BAR
@@ -4637,21 +4644,23 @@ ul { list-style: none; }
   }
 
   // =============================================
-  // PARALLAX ON SCROLL
+  // PARALLAX ON SCROLL (DESKTOP ONLY)
   // =============================================
-  window.addEventListener('scroll', () => {
-    const y = scrollY;
-    // Hero orbs parallax
-    document.querySelectorAll('.hero-orb').forEach((orb, i) => {
-      const speed = 0.05 + i * 0.02;
-      orb.style.transform = `translateY(${y * speed}px)`;
-    });
-  }, { passive: true });
+  if (window.innerWidth > 768) {
+    window.addEventListener('scroll', () => {
+      const y = scrollY;
+      document.querySelectorAll('.hero-orb').forEach((orb, i) => {
+        const speed = 0.05 + i * 0.02;
+        orb.style.transform = `translateY(${y * speed}px)`;
+      });
+    }, { passive: true });
+  }
 
   // =============================================
-  // ABOUT SECTION ÔÇö PARTICLE NETWORK
+  // ABOUT SECTION ÔÇö PARTICLE NETWORK (DESKTOP ONLY)
   // =============================================
   (function() {
+    if (window.innerWidth <= 768) return;
     const canvas = document.getElementById('aboutParticles');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -4802,9 +4811,10 @@ ul { list-style: none; }
   }
 
   // =============================================
-  // CONTACT BUBBLES + FOAM
+  // CONTACT BUBBLES + FOAM (DESKTOP ONLY)
   // =============================================
   (function() {
+    if (window.innerWidth <= 768) return;
     const canvas = document.getElementById('contactBubbles');
     const foam = document.getElementById('contactFoam');
     if (!canvas || !foam) return;
