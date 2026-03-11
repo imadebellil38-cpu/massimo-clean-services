@@ -4653,29 +4653,27 @@ ul { list-style: none; }
   // TYPEWRITER HERO TITLE
   // =============================================
   const heroTitle = document.getElementById('heroTitle');
-  const titleHTML = 'La propret&eacute; au service de votre <em>excellence</em>';
-  const titleText = 'La propret&eacute; au service de votre excellence';
+  const titleChars = Array.from('La propreté au service de votre excellence');
+  const emWord = 'excellence';
   let charIndex = 0;
 
   function typeWriter() {
-    if (charIndex <= titleText.length) {
-      // Build HTML progressively
-      let current = titleText.substring(0, charIndex);
-      // Wrap "excellence" in <em> if we've reached it
-      const emStart = titleText.indexOf('excellence');
-      if (charIndex > emStart) {
-        const before = titleText.substring(0, emStart);
-        const emText = titleText.substring(emStart, charIndex);
-        current = before + '<em>' + emText + '</em>';
+    if (charIndex <= titleChars.length) {
+      const current = titleChars.slice(0, charIndex).join('');
+      const emStart = current.indexOf(emWord);
+      let display;
+      if (emStart !== -1) {
+        display = current.substring(0, emStart) + '<em>' + current.substring(emStart) + '</em>';
+      } else {
+        display = current;
       }
-      heroTitle.innerHTML = current + '<span class="typewriter-cursor"></span>';
+      heroTitle.innerHTML = display + '<span class="typewriter-cursor"></span>';
       charIndex++;
       const speed = charIndex < 5 ? 80 : (Math.random() * 40 + 40);
       setTimeout(typeWriter, speed);
     } else {
-      // Remove cursor after a moment
       setTimeout(() => {
-        heroTitle.innerHTML = titleHTML;
+        heroTitle.innerHTML = 'La propreté au service de votre <em>excellence</em>';
       }, 2000);
     }
   }
