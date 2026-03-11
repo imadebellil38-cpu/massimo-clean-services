@@ -235,7 +235,7 @@ ul { list-style: none; }
 .loader-bubble:nth-child(3) { width:18px; height:18px; left:40%; animation-duration:6s; animation-delay:0.2s; background: radial-gradient(circle at 30% 30%, rgba(245,158,11,0.4), rgba(245,158,11,0.1) 60%, transparent); border-color: rgba(245,158,11,0.2); box-shadow: 0 0 10px rgba(245,158,11,0.15); }
 .loader-bubble:nth-child(4) { width:8px; height:8px; left:55%; animation-duration:3.5s; animation-delay:0.8s; }
 .loader-bubble:nth-child(5) { width:12px; height:12px; left:70%; animation-duration:4.5s; animation-delay:0.3s; }
-.loader-bubble:nth-child(6) { width:16px; height:16px; left:85%; animation-duration:5.5s; animation-delay:0.1s; background: radial-gradient(circle at 30% 30%, rgba(16,185,129,0.35), rgba(16,185,129,0.1) 60%, transparent); border-color: rgba(16,185,129,0.2); box-shadow: 0 0 8px rgba(16,185,129,0.15); }
+.loader-bubble:nth-child(6) { width:16px; height:16px; left:85%; animation-duration:5.5s; animation-delay:0.1s; background: radial-gradient(circle at 30% 30%, rgba(245,158,11,0.45), rgba(245,158,11,0.1) 60%, transparent); border-color: rgba(245,158,11,0.25); box-shadow: 0 0 10px rgba(245,158,11,0.2); }
 .loader-bubble:nth-child(7) { width:9px; height:9px; left:15%; animation-duration:3.8s; animation-delay:1s; }
 .loader-bubble:nth-child(8) { width:13px; height:13px; left:60%; animation-duration:5s; animation-delay:0.4s; }
 .loader-bubble:nth-child(9) { width:11px; height:11px; left:35%; animation-duration:4.8s; animation-delay:0.6s; }
@@ -300,7 +300,7 @@ ul { list-style: none; }
   border-radius: 50%;
   border: 2px solid transparent;
   border-bottom-color: rgba(245,158,11,0.5);
-  border-left-color: rgba(16,185,129,0.4);
+  border-left-color: rgba(245,158,11,0.4);
   animation: loaderSpin 3.5s linear infinite reverse;
   filter: drop-shadow(0 0 4px rgba(245,158,11,0.3));
 }
@@ -4653,29 +4653,27 @@ ul { list-style: none; }
   // TYPEWRITER HERO TITLE
   // =============================================
   const heroTitle = document.getElementById('heroTitle');
-  const titleHTML = 'La propret&eacute; au service de votre <em>excellence</em>';
-  const titleText = 'La propret&eacute; au service de votre excellence';
+  const titleChars = Array.from('La propreté au service de votre excellence');
+  const emWord = 'excellence';
   let charIndex = 0;
 
   function typeWriter() {
-    if (charIndex <= titleText.length) {
-      // Build HTML progressively
-      let current = titleText.substring(0, charIndex);
-      // Wrap "excellence" in <em> if we've reached it
-      const emStart = titleText.indexOf('excellence');
-      if (charIndex > emStart) {
-        const before = titleText.substring(0, emStart);
-        const emText = titleText.substring(emStart, charIndex);
-        current = before + '<em>' + emText + '</em>';
+    if (charIndex <= titleChars.length) {
+      const current = titleChars.slice(0, charIndex).join('');
+      const emStart = current.indexOf(emWord);
+      let display;
+      if (emStart !== -1) {
+        display = current.substring(0, emStart) + '<em>' + current.substring(emStart) + '</em>';
+      } else {
+        display = current;
       }
-      heroTitle.innerHTML = current + '<span class="typewriter-cursor"></span>';
+      heroTitle.innerHTML = display + '<span class="typewriter-cursor"></span>';
       charIndex++;
       const speed = charIndex < 5 ? 80 : (Math.random() * 40 + 40);
       setTimeout(typeWriter, speed);
     } else {
-      // Remove cursor after a moment
       setTimeout(() => {
-        heroTitle.innerHTML = titleHTML;
+        heroTitle.innerHTML = 'La propreté au service de votre <em>excellence</em>';
       }, 2000);
     }
   }
