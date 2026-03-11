@@ -1655,49 +1655,77 @@ ul { list-style: none; }
 .gallery-mosaic {
   max-width: 1200px; margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 240px 240px;
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
-.gal-item {
-  background: linear-gradient(135deg, var(--navy), #1e3a5f);
-  border-radius: var(--radius);
-  position: relative; overflow: hidden;
+.insta-embed-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1px solid #dbdbdb;
+  overflow: hidden;
+  transition: all 0.4s var(--ease);
+  position: relative;
+}
+.insta-embed-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+.insta-embed-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px;
+}
+.insta-embed-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
   display: flex; align-items: center; justify-content: center;
-  transition: all 0.5s var(--ease);
+  color: #fff; font-weight: 700; font-size: 0.7rem;
 }
-.gal-item::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(30,27,75,0.8), transparent 60%);
-  z-index: 1;
+.insta-embed-user {
+  font-weight: 700; font-size: 0.85rem; color: var(--navy);
 }
-.gal-item::after {
-  content: ''; position: absolute; inset: 0;
-  border: 1px solid rgba(255,255,255,0);
-  border-radius: var(--radius);
-  transition: border-color 0.3s;
-  z-index: 2;
+.insta-embed-handle {
+  font-size: 0.72rem; color: var(--text-4);
 }
-.gal-item:hover { transform: scale(1.03); }
-.gal-item:hover::after { border-color: rgba(26,109,194,0.3); }
-.gal-item i {
-  width: 40px; height: 40px;
-  color: rgba(255,255,255,0.3);
-  transition: all 0.4s;
-  position: relative; z-index: 3;
+.insta-embed-img {
+  width: 100%; aspect-ratio: 1/1;
+  background: linear-gradient(135deg, #1a2332 0%, #1e3a5f 50%, #1a6dc2 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; position: relative; overflow: hidden;
 }
-.gal-item:hover i { color: var(--blue-light); transform: scale(1.2); }
-.gal-item:nth-child(even):hover::after { border-color: rgba(245,158,11,0.4); }
-.gal-item:nth-child(even):hover i { color: var(--gold-light); }
-.gal-item .g-label {
-  position: absolute; bottom: 16px; left: 16px; z-index: 3;
-  font-size: 0.78rem; font-weight: 600;
-  color: rgba(255,255,255,0.7);
-  display: flex; align-items: center; gap: 6px;
+.insta-embed-img i {
+  width: 48px; height: 48px; color: rgba(255,255,255,0.25);
 }
-.gal-item .g-label i { width: 12px; height: 12px; }
-.gal-item:nth-child(1) { grid-column: span 2; }
-.gal-item:nth-child(4) { grid-row: span 2; }
+.insta-embed-img .insta-placeholder-text {
+  font-size: 0.82rem; color: rgba(255,255,255,0.4); font-weight: 500;
+  text-align: center; padding: 0 20px;
+}
+.insta-embed-footer {
+  padding: 14px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.insta-embed-actions {
+  display: flex; gap: 14px;
+}
+.insta-embed-actions i {
+  width: 22px; height: 22px; color: var(--navy); opacity: 0.6;
+}
+.insta-embed-caption {
+  font-size: 0.78rem; color: var(--text-3); padding: 0 16px 14px;
+}
+.insta-embed-caption strong { color: var(--navy); }
+.insta-cta {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-top: 32px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  color: #fff; font-weight: 700; font-size: 0.95rem;
+  border-radius: var(--radius); border: none; cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s;
+  width: fit-content; margin-left: auto; margin-right: auto;
+}
+.insta-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(225,48,108,0.4); }
+.insta-cta i { width: 20px; height: 20px; }
 
 /* =============================================
    TESTIMONIALS
@@ -2788,7 +2816,7 @@ ul { list-style: none; }
   .about-grid, .benefits-grid { grid-template-columns: 1fr; }
   .about-visual { max-height: 420px; }
   .benefits-cards-wrap { grid-template-columns: 1fr; }
-  .gallery-mosaic { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+  .gallery-mosaic { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .gal-item:nth-child(1) { grid-column: span 2; }
   .gal-item:nth-child(4) { grid-row: span 1; }
   .testi-grid { grid-template-columns: 1fr; }
@@ -2883,7 +2911,8 @@ ul { list-style: none; }
   .benefit-card .svc-illus { width: 70px !important; height: 70px !important; }
 
   /* --- GALLERY --- */
-  .gallery-mosaic { grid-template-columns: 1fr 1fr !important; gap: 10px; }
+  .gallery-mosaic { grid-template-columns: 1fr !important; gap: 14px; max-width: 400px; }
+  .insta-embed-img { aspect-ratio: 4/3; }
   .gal-item { min-height: 130px; border-radius: 14px; }
   .gal-item:nth-child(1) { grid-column: span 2; min-height: 160px; }
   .gal-item svg, .gal-item i { width: 32px; height: 32px; }
@@ -3795,26 +3824,112 @@ ul { list-style: none; }
     <p class="sec-sub">Chaque intervention est r&eacute;alis&eacute;e avec le m&ecirc;me niveau d'exigence.</p>
   </div>
   <div class="gallery-mosaic" style="position:relative;z-index:2;">
-    <div class="gal-item reveal">
-      <svg viewBox="0 0 400 200" fill="none" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.15;z-index:0;"><rect x="40" y="30" width="120" height="80" rx="4" stroke="#4a9ade" stroke-width="2"/><rect x="55" y="45" width="30" height="20" rx="2" stroke="#4a9ade" stroke-width="1.5"/><rect x="95" y="45" width="30" height="20" rx="2" stroke="#4a9ade" stroke-width="1.5"/><rect x="55" y="75" width="30" height="20" rx="2" stroke="#4a9ade" stroke-width="1.5"/><rect x="95" y="75" width="30" height="20" rx="2" stroke="#4a9ade" stroke-width="1.5"/><rect x="200" y="40" width="80" height="60" rx="4" stroke="#4a9ade" stroke-width="2"/><path d="M210 55h60M210 65h40M210 75h50M210 85h30" stroke="#4a9ade" stroke-width="1" opacity="0.5"/><circle cx="320" cy="60" r="20" stroke="#f59e0b" stroke-width="2"/><path d="M312 60l5 5 10-10" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/><path d="M340 120h-300" stroke="#4a9ade" stroke-width="1" stroke-dasharray="6 4"/></svg>
-      <i data-lucide="building-2"></i><div class="g-label"><i data-lucide="map-pin"></i> Bureaux &mdash; Grenoble</div></div>
+    <!-- EMBED 1 -->
+    <div class="insta-embed-card reveal">
+      <div class="insta-embed-header">
+        <div class="insta-embed-avatar">MCS</div>
+        <div><div class="insta-embed-user">massimocleanservices</div><div class="insta-embed-handle">Grenoble, France</div></div>
+      </div>
+      <div class="insta-embed-img">
+        <i data-lucide="building-2"></i>
+        <span class="insta-placeholder-text">Photo Instagram<br>Nettoyage bureaux</span>
+      </div>
+      <div class="insta-embed-footer">
+        <div class="insta-embed-actions"><i data-lucide="heart"></i><i data-lucide="message-circle"></i><i data-lucide="send"></i></div>
+        <i data-lucide="bookmark" style="width:22px;height:22px;color:var(--navy);opacity:0.6;"></i>
+      </div>
+      <div class="insta-embed-caption"><strong>massimocleanservices</strong> Nettoyage de bureaux professionnels</div>
+    </div>
 
-    <div class="gal-item reveal rd1">
-      <svg viewBox="0 0 200 200" fill="none" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.15;z-index:0;"><path d="M50 160V80l50-35 50 35v80" stroke="#4a9ade" stroke-width="2.5" stroke-linejoin="round"/><path d="M30 160h140" stroke="#4a9ade" stroke-width="2"/><rect x="75" y="110" width="30" height="8" rx="2" stroke="#4a9ade" stroke-width="1.5"/><rect x="75" y="125" width="30" height="8" rx="2" stroke="#4a9ade" stroke-width="1.5"/><circle cx="155" cy="50" r="15" stroke="#f59e0b" stroke-width="2"/><path d="M148 50l5 5 10-10" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/><path d="M40 50l8 8M48 50l-8 8" stroke="#4a9ade" stroke-width="1.5" stroke-linecap="round"/><path d="M160 120l8 8M168 120l-8 8" stroke="#4a9ade" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <i data-lucide="hard-hat"></i><div class="g-label"><i data-lucide="map-pin"></i> Fin de chantier</div></div>
+    <!-- EMBED 2 -->
+    <div class="insta-embed-card reveal rd1">
+      <div class="insta-embed-header">
+        <div class="insta-embed-avatar">MCS</div>
+        <div><div class="insta-embed-user">massimocleanservices</div><div class="insta-embed-handle">Grenoble, France</div></div>
+      </div>
+      <div class="insta-embed-img" style="background:linear-gradient(135deg, #1e3a5f 0%, #1a6dc2 50%, #60a5fa 100%);">
+        <i data-lucide="hard-hat"></i>
+        <span class="insta-placeholder-text">Photo Instagram<br>Fin de chantier</span>
+      </div>
+      <div class="insta-embed-footer">
+        <div class="insta-embed-actions"><i data-lucide="heart"></i><i data-lucide="message-circle"></i><i data-lucide="send"></i></div>
+        <i data-lucide="bookmark" style="width:22px;height:22px;color:var(--navy);opacity:0.6;"></i>
+      </div>
+      <div class="insta-embed-caption"><strong>massimocleanservices</strong> Remise en &eacute;tat apr&egrave;s chantier</div>
+    </div>
 
-    <div class="gal-item reveal rd2">
-      <svg viewBox="0 0 200 200" fill="none" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.15;z-index:0;"><path d="M60 160V70l40-30 40 30v90" stroke="#4a9ade" stroke-width="2.5" stroke-linejoin="round"/><rect x="80" y="120" width="25" height="40" rx="2" stroke="#4a9ade" stroke-width="2"/><rect x="70" y="80" width="16" height="16" rx="2" stroke="#4a9ade" stroke-width="1.5"/><rect x="100" y="80" width="16" height="16" rx="2" stroke="#4a9ade" stroke-width="1.5"/><path d="M30 70l10-15 10 15" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M40 70v20" stroke="#10b981" stroke-width="2"/><path d="M155 50l5-15 5 15M150 55l10-5 10 5" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <i data-lucide="home"></i><div class="g-label"><i data-lucide="map-pin"></i> Remise en &eacute;tat</div></div>
+    <!-- EMBED 3 -->
+    <div class="insta-embed-card reveal rd2">
+      <div class="insta-embed-header">
+        <div class="insta-embed-avatar">MCS</div>
+        <div><div class="insta-embed-user">massimocleanservices</div><div class="insta-embed-handle">Grenoble, France</div></div>
+      </div>
+      <div class="insta-embed-img" style="background:linear-gradient(135deg, #0f172a 0%, #1a2332 50%, #1e3a5f 100%);">
+        <i data-lucide="home"></i>
+        <span class="insta-placeholder-text">Photo Instagram<br>Remise en &eacute;tat</span>
+      </div>
+      <div class="insta-embed-footer">
+        <div class="insta-embed-actions"><i data-lucide="heart"></i><i data-lucide="message-circle"></i><i data-lucide="send"></i></div>
+        <i data-lucide="bookmark" style="width:22px;height:22px;color:var(--navy);opacity:0.6;"></i>
+      </div>
+      <div class="insta-embed-caption"><strong>massimocleanservices</strong> Nettoyage complet appartement</div>
+    </div>
 
-    <div class="gal-item reveal rd3">
-      <svg viewBox="0 0 200 400" fill="none" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.15;z-index:0;"><rect x="30" y="30" width="140" height="340" rx="4" stroke="#4a9ade" stroke-width="2.5"/><line x1="100" y1="30" x2="100" y2="370" stroke="#4a9ade" stroke-width="1.5"/><line x1="30" y1="200" x2="170" y2="200" stroke="#4a9ade" stroke-width="1.5"/><path d="M50 100l15 15M65 100l-15 15" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/><path d="M120 260l15 15M135 260l-15 15" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/><circle cx="75" cy="300" r="8" stroke="#4a9ade" stroke-width="1.5"/><path d="M72 300h6M75 297v6" stroke="#4a9ade" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <i data-lucide="panel-top"></i><div class="g-label"><i data-lucide="map-pin"></i> Vitres pro</div></div>
+    <!-- EMBED 4 -->
+    <div class="insta-embed-card reveal rd3">
+      <div class="insta-embed-header">
+        <div class="insta-embed-avatar">MCS</div>
+        <div><div class="insta-embed-user">massimocleanservices</div><div class="insta-embed-handle">Grenoble, France</div></div>
+      </div>
+      <div class="insta-embed-img" style="background:linear-gradient(135deg, #1a6dc2 0%, #3b82f6 50%, #93c5fd 100%);">
+        <i data-lucide="panel-top"></i>
+        <span class="insta-placeholder-text">Photo Instagram<br>Nettoyage vitres</span>
+      </div>
+      <div class="insta-embed-footer">
+        <div class="insta-embed-actions"><i data-lucide="heart"></i><i data-lucide="message-circle"></i><i data-lucide="send"></i></div>
+        <i data-lucide="bookmark" style="width:22px;height:22px;color:var(--navy);opacity:0.6;"></i>
+      </div>
+      <div class="insta-embed-caption"><strong>massimocleanservices</strong> Vitres impeccables pour commerce</div>
+    </div>
 
-    <div class="gal-item reveal rd4">
-      <svg viewBox="0 0 200 200" fill="none" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.15;z-index:0;"><circle cx="100" cy="100" r="50" stroke="#4a9ade" stroke-width="2"/><circle cx="100" cy="100" r="30" stroke="#4a9ade" stroke-width="1.5"/><path d="M85 100l10 10 20-20" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 40l5-10 5 10M45 45l10-5 10 5" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/><path d="M150 35l5-10 5 10M145 40l10-5 10 5" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/><path d="M40 140l5-10 5 10" stroke="#4a9ade" stroke-width="1.5" stroke-linecap="round"/><path d="M155 150l5-10 5 10" stroke="#4a9ade" stroke-width="1.5" stroke-linecap="round"/><circle cx="30" cy="80" r="4" stroke="#4a9ade" stroke-width="1"/><circle cx="170" cy="120" r="3" stroke="#4a9ade" stroke-width="1"/></svg>
-      <i data-lucide="sparkles"></i><div class="g-label"><i data-lucide="map-pin"></i> Nettoyage complet</div></div>
+    <!-- EMBED 5 -->
+    <div class="insta-embed-card reveal rd4">
+      <div class="insta-embed-header">
+        <div class="insta-embed-avatar">MCS</div>
+        <div><div class="insta-embed-user">massimocleanservices</div><div class="insta-embed-handle">Grenoble, France</div></div>
+      </div>
+      <div class="insta-embed-img" style="background:linear-gradient(135deg, #1a2332 0%, #10b981 50%, #34d399 100%);">
+        <i data-lucide="sparkles"></i>
+        <span class="insta-placeholder-text">Photo Instagram<br>D&eacute;sinfection</span>
+      </div>
+      <div class="insta-embed-footer">
+        <div class="insta-embed-actions"><i data-lucide="heart"></i><i data-lucide="message-circle"></i><i data-lucide="send"></i></div>
+        <i data-lucide="bookmark" style="width:22px;height:22px;color:var(--navy);opacity:0.6;"></i>
+      </div>
+      <div class="insta-embed-caption"><strong>massimocleanservices</strong> D&eacute;sinfection compl&egrave;te locaux pro</div>
+    </div>
+
+    <!-- EMBED 6 -->
+    <div class="insta-embed-card reveal rd5">
+      <div class="insta-embed-header">
+        <div class="insta-embed-avatar">MCS</div>
+        <div><div class="insta-embed-user">massimocleanservices</div><div class="insta-embed-handle">Grenoble, France</div></div>
+      </div>
+      <div class="insta-embed-img" style="background:linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%);">
+        <i data-lucide="truck"></i>
+        <span class="insta-placeholder-text">Photo Instagram<br>D&eacute;barras</span>
+      </div>
+      <div class="insta-embed-footer">
+        <div class="insta-embed-actions"><i data-lucide="heart"></i><i data-lucide="message-circle"></i><i data-lucide="send"></i></div>
+        <i data-lucide="bookmark" style="width:22px;height:22px;color:var(--navy);opacity:0.6;"></i>
+      </div>
+      <div class="insta-embed-caption"><strong>massimocleanservices</strong> Service de d&eacute;barras complet</div>
+    </div>
   </div>
+
+  <a href="https://www.instagram.com/massimocleanservices/" target="_blank" class="insta-cta" style="position:relative;z-index:2;">
+    <i data-lucide="instagram"></i> Voir toutes nos r&eacute;alisations sur Instagram
+  </a>
 </section>
 
 <div class="wave-divider">
