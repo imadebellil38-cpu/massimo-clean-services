@@ -666,6 +666,12 @@ ul { list-style: none; }
   font-size: clamp(2.6rem, 5vw, 4.2rem);
   color: #fff; line-height: 1.1;
   margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: heroTitleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+}
+@keyframes heroTitleReveal {
+  to { opacity: 1; transform: translateY(0); }
 }
 .hero h1 em {
   font-style: italic;
@@ -673,6 +679,13 @@ ul { list-style: none; }
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline-block;
+  opacity: 0;
+  animation: heroEmReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+}
+@keyframes heroEmReveal {
+  from { opacity: 0; transform: translateY(15px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .hero-sub {
@@ -3168,7 +3181,7 @@ ul { list-style: none; }
 
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
-  <a href="#" class="nav-brand">
+  <a href="#" class="nav-brand" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
     <img src="logo-mcs.png" alt="Massimo Clean Services" class="nav-logo-img" style="height:140px;width:auto;transition:all 0.4s;">
   </a>
   <ul class="nav-links">
