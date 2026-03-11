@@ -674,18 +674,6 @@ ul { list-style: none; }
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-/* Typewriter cursor for hero title */
-.hero h1 .typewriter-cursor {
-  display: inline-block;
-  width: 3px; height: 0.9em;
-  background: var(--gold);
-  margin-left: 4px;
-  animation: blink 0.8s step-end infinite;
-  vertical-align: text-bottom;
-}
-@keyframes blink {
-  50% { opacity: 0; }
-}
 
 .hero-sub {
   font-size: 1.1rem; color: rgba(255,255,255,0.55);
@@ -3230,7 +3218,7 @@ ul { list-style: none; }
         <i data-lucide="spray-can"></i>
         Entreprise de nettoyage &agrave; Grenoble
       </div>
-      <h1 id="heroTitle"></h1>
+      <h1 id="heroTitle">La propret&eacute; au service de votre <em>excellence</em></h1>
       <p class="hero-sub">Nous intervenons rapidement sous 48h, 24h/24 et 7j/7. Possibilit&eacute; de d&eacute;placement en p&eacute;riph&eacute;rie de Grenoble sur demande de devis gratuit. <strong class="hero-brand-highlight">Massimo Clean Services</strong> propose des services de nettoyage sur-mesure pour vos locaux professionnels et logements.</p>
       <div class="hero-btns">
         <a href="#contact" class="btn-hero-primary magnetic-btn">Demander un devis <i data-lucide="arrow-right"></i></a>
@@ -4649,37 +4637,6 @@ ul { list-style: none; }
   if (window.innerWidth > 768) {
   }
 
-  // =============================================
-  // TYPEWRITER HERO TITLE
-  // =============================================
-  const heroTitle = document.getElementById('heroTitle');
-  const titleChars = Array.from('La propreté au service de votre excellence');
-  const emWord = 'excellence';
-  let charIndex = 0;
-
-  function typeWriter() {
-    if (charIndex <= titleChars.length) {
-      const current = titleChars.slice(0, charIndex).join('');
-      const emStart = current.indexOf(emWord);
-      let display;
-      if (emStart !== -1) {
-        display = current.substring(0, emStart) + '<em>' + current.substring(emStart) + '</em>';
-      } else {
-        display = current;
-      }
-      heroTitle.innerHTML = display + '<span class="typewriter-cursor"></span>';
-      charIndex++;
-      const speed = charIndex < 5 ? 80 : (Math.random() * 40 + 40);
-      setTimeout(typeWriter, speed);
-    } else {
-      setTimeout(() => {
-        heroTitle.innerHTML = 'La propreté au service de votre <em>excellence</em>';
-      }, 2000);
-    }
-  }
-
-  // Start typewriter after loader
-  setTimeout(typeWriter, 3000);
 
   // =============================================
   // NAVBAR + BACK TO TOP WITH PROGRESS RING
